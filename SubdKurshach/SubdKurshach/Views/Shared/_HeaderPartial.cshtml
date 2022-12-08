@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SubdKurshach.Models.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<header class="p-3 bg-primary">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/Home/Index" class="nav-link px-2 link-light">OKSITREND</a></li>
+                </ul>
+                {
+                    User user = await UserManager.FindByNameAsync(User.Identity.Name);
+                    if (user != null)
+                    {
+                        if (user.UserRole.RoleName != "Пользователь")
+                        {
+                            <a href="/Marriage/NewMarriage" class="nav-link px-2 text-light">Заключить брак</a>
+                            <a href="#" class="nav-link px-2 text-light">Расторгнуть брак</a>
+                        }
+                        <form class="col-12 col-lg-3 mb-3 mb-lg-0 me-lg-3">
+                            <input type="text" class="form-control text-center" value="@user.LastName @user.FirstName @user.Patronymic" readonly>
+                        </form>
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="@user.ProfilePhoto" alt="mdo" width="48" height="48" class="rounded-circle">
+                        </a>
+                        <div class="dropdown text-end row">
+                             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" href="/Profile/Profile">Профиль</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><form asp-controller="Account" asp-action="Logout" method="post"><input class="dropdown-item" value="Выход" type="submit" /></form></li>
+                             </ul>
+                        </div>
+
+                    }
+                }
+            }
+            else
+            {
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><h5 href="#" class=" px-2 link-light">Oksitrend</h5></li>
+                </ul>
+                <div class="col-md-3 text-end">
+                    <a href="/Account/Login" type="btn" class="btn btn-outline-light me-2">Вход</a>
+                    <a href="/Account/Register" type="btn" class="btn btn-light">Регистрация</a>
+                </div>
+            } 
+        </div>
+    </div>
+</header>

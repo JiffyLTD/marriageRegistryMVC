@@ -1,0 +1,54 @@
+﻿@model SubdKurshach.ViewModel.UsersListViewModel
+@{
+    ViewData["Title"] = "Список пользователей";
+}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row h-100">
+            <div class="col-sm">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Список зарегестрировавшихся пользователей</h3>
+                        @foreach(var user in Model.users)
+                        {
+                            <form class="card shadow-2-strong card-registration mb-4" style="border-radius: 15px;">
+                            <div class="row px-2 py-2">
+                                <div class="col-md-6 mb-4 align-content-center">
+                                    <div class="form-outline datepicker text-center">
+                                        <img src="@user.ProfilePhoto" width="250" height="250" class="rounded" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4 d-flex align-items-end">
+                                    <div class="form-outline datepicker" style="width:500px">
+                                        <div class="mb-5 text-center">
+                                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">@user.UserRole.RoleName</h3>
+                                                <a class="btn btn-warning btn-lg w-100 mb-2" type="btn" href="/UserList/EditUserRole?id=@user.Id">Редактировать роль</a>
+                                            <a class="btn btn-danger btn-lg w-100 mb-2" type="btn" href="">Удалить пользователя</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control form-control-lg" value="@user.LastName" readonly />
+                                        <label class="form-label">Фамилия</label>
+                                            </div>
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control form-control-lg" value="@user.FirstName" readonly />
+                                                <label class="form-label">Имя</label>
+                                            </div>
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control form-control-lg" value="@user.Patronymic" readonly />
+                                        <label class="form-label">Отчество</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

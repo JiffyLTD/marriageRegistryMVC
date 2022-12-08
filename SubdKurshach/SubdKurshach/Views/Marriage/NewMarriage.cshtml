@@ -1,0 +1,47 @@
+﻿@model SubdKurshach.ViewModel.AllUsersForMarriageViewModel
+@{
+    ViewData["Title"] = "Свадьба";
+}
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row h-100">
+            <div class="col-sm">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Заключить свадьбу</h3>
+                        <form asp-controller="Marriage" asp-action="NewMarriage" method="post">
+                            <div class="col-sm">
+                                <select asp-for="HusbandId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    if(@Model.husbands.Count() > 0)
+                                    {
+                                        @foreach(var husband in Model.husbands)
+                                        {
+                                            <option value="@husband.HusbandId">@husband.User.LastName @husband.User.LastName @husband.User.Patronymic</option>
+                                        }
+                                    }
+                                </select>
+                                <label class="form-label">Муж</label>
+
+                                <select asp-for="WifeId" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    if(@Model.wives.Count() > 0)
+                                    {
+                                        @foreach(var wife in Model.wives)
+                                        {
+                                            <option value="@wife.WifeId">@wife.User.LastName @wife.User.LastName @wife.User.Patronymic</option>
+                                        }
+                                    }
+                                </select>
+                                <label class="form-label">Жена</label>
+
+                                <div class="mt-4 pt-2">
+                                    <input class="btn btn-primary btn-lg w-100" type="submit" value="Составить договор" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

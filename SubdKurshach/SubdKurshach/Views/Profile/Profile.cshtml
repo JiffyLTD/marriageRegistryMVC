@@ -1,0 +1,191 @@
+﻿@model SubdKurshach.Models.Users.User
+@{
+    ViewData["Title"] = "Профиль";
+}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row h-100">
+            <div class="col-sm">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Мой профиль</h3>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                    <div class="form-outline datepicker text-center">
+                                        <img src="@Model.ProfilePhoto" width="250" height="250" class="rounded" />
+                                        <label class="form-label">Фото профиля</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4 d-flex align-items-end">
+                                    <div class="form-outline datepicker" style="width:500px">
+                                        <div class="mb-5 text-center">
+                                            @if (Model.UserRole.RoleName != "Пользователь") 
+                                            {
+                                                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">@Model.UserRole.RoleName</h3>
+                                            }
+                                            @if (Model.UserRole.RoleName == "Администратор")
+                                            {
+                                                <a class="btn btn-warning btn-lg w-100 mb-2" type="btn" href="/UserList/ShowUserList">Профили пользователей</a>
+                                            }
+                                            <a class="btn btn-warning btn-lg w-100 mb-2" type="btn" href="/Profile/ProfileEdit">Редактировать профиль</a>
+                                            <a class="btn btn-danger btn-lg w-100 mb-2" type="btn" href="/Account/DeleteProfile">Удалить профиль</a>
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                    <div class="form-outline datepicker" style="width:500px">
+                                        <input asp-for="LastName" type="text" class="form-control form-control-lg" readonly/>
+                                        <label class="form-label">Фамилия</label>
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+
+                                        <input asp-for="FirstName" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Имя</label>
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+
+                                        <input asp-for="Patronymic" type="text" class="form-control form-control-lg" readonly/>
+                                        <label class="form-label">Отчество</label>
+                                        <span asp-validation-for="Patronymic" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline datepicker w-100">
+                                        <input asp-for="PhoneNumber" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Номер телефона</label>
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-outline">
+                                        <input asp-for="Email" type="email" id="emailAddress" class="form-control form-control-lg" readonly />
+                                        <label class="form-label" for="emailAddress">Email</label>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-outline">
+                                        <input asp-for="RegisterDate" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Дата регистрации</label>
+                                        <span asp-validation-for="RegisterDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Паспортные данные</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                    <div class="form-outline datepicker" style="width:500px">
+                                        <input asp-for="UserPassport.PassportSeries" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Серия</label>
+                                        <span asp-validation-for="UserPassport.PassportSeries" class="text-danger"></span>
+
+                                        <input asp-for="UserPassport.PassportNum" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Номер</label>
+                                        <span asp-validation-for="UserPassport.PassportNum" class="text-danger"></span>
+
+
+                                        <input asp-for="UserPassport.PassportDate" type="date" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Дата выдачи</label>
+                                        <span asp-validation-for="UserPassport.PassportDate" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline datepicker w-100">
+                                        <input asp-for="UserPassport.Birthday" type="date" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Дата рождения</label>
+                                        <span asp-validation-for="UserPassport.Birthday" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-outline datepicker">
+                                    <input asp-for="UserPassport.PassportIssuedByWhom" type="text" class="form-control form-control-lg" readonly />
+                                    <label class="form-label">Кем выдан</label>
+                                    <span asp-validation-for="UserPassport.PassportIssuedByWhom" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Место жительства</h3>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                    <div class="form-outline datepicker" style="width:500px">
+                                        <input asp-for="UserAddress.Country" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Страна</label>
+                                        <span asp-validation-for="UserAddress.Country" class="text-danger"></span>
+
+                                        <input asp-for="UserAddress.City" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Город</label>
+                                        <span asp-validation-for="UserAddress.City" class="text-danger"></span>
+
+
+                                        <input asp-for="UserAddress.Street" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Улица</label>
+                                        <span asp-validation-for="UserAddress.Street" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline datepicker w-100">
+                                        <input asp-for="UserAddress.HouseNum" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Дом</label>
+                                        <span asp-validation-for="UserAddress.HouseNum" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-outline datepicker w-100">
+                                        <input asp-for="UserAddress.AppartNum" type="text" class="form-control form-control-lg" readonly />
+                                        <label class="form-label">Квартира</label>
+                                        <span asp-validation-for="UserAddress.AppartNum" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="row">
+                            <div class="col-sm">
+                              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Моя семья</h3>
+                            </div>
+                            <div class="col-sm">
+                                <a class="btn btn-success btn-lg w-100" type="btn" href="/Children/AddChild">Добавить ребенка</a>
+                            </div>
+                        </div>
+
+                       @foreach(var child in Model.UserPassport.AllChildrens)
+                       {
+                            if (child.Child != null) {
+                                <form class="mb-3">
+                                    <h3>Ребенок</h3>
+                                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                                        <div class="container mt-2">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <input type="text" class="form-control form-control-lg" value="@child.Child.LastName" readonly />
+                                                    <label class="form-label">Фамилия</label>
+
+                                                    <input type="text" class="form-control form-control-lg" value="@child.Child.FirstName" readonly />
+                                                    <label class="form-label">Имя</label>
+
+                                                    <input type="text" class="form-control form-control-lg" value="@child.Child.Patronymic" readonly />
+                                                    <label class="form-label">Отчество</label>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <input type="text" class="form-control form-control-lg" value="@child.Child.BirthCertificate" readonly />
+                                                    <label class="form-label">Свидетельство о рождении</label>
+
+                                                    <input type="text" class="form-control form-control-lg" value="@child.Child.Birthday.ToShortDateString()" readonly />
+                                                    <label class="form-label">Дата рождения</label>
+
+                                                    <a class="btn btn-warning btn-lg w-100 mb-2" type="btn" href="/Children/EditChild?id=@child.ChildId">Редактировать</a>
+                                                    <a class="btn btn-danger btn-lg w-100 mb-2" type="btn" href="/Children/DeleteChild?id=@child.ChildId">Удалить</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            }
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
