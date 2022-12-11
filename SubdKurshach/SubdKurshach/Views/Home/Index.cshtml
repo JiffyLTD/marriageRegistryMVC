@@ -1,4 +1,8 @@
-﻿@model SubdKurshach.ViewModel.AllMarriagesViewModel
+﻿@using Microsoft.AspNetCore.Identity;
+@using SubdKurshach.Models.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@model SubdKurshach.ViewModel.AllMarriagesViewModel
 @{
     ViewData["Title"] = "Портал";
 }
@@ -49,7 +53,7 @@
                     <div class="card-body p-4 p-md-5">
                         @foreach(var family in Model.marriages)
                         {
-                            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                            <div class="card shadow-2-strong card-registration mb-5" style="border-radius: 15px;">
                                     <div class="row">
                                         <div class="col-sm">
                                             <img height="500" width="900" style="border-radius: 15px;" src="https://www.belpressa.ru/media/filer_public_thumbnails/filer_public/ee/c0/eec05c92-1be5-4485-a518-756b59482443/5b883463-2de9-4287-8c36-3e234fea174f.jpg__750x415_q75_crop-True_subsampling-2_upscale.jpg" />
@@ -63,18 +67,64 @@
                                                 <b>@family.Wife.User.LastName @family.Wife.User.FirstName</b> ответила - "Да!!!"
                                             </p>
                                             <p class="align-bottom"  style="font-family: 'Philosopher' , sans-serif;">
-                                                    Мира и согласия в семье,
-                                                    Пониманья вам и уважения,
-                                                    Радости вам в каждом вашем дне
-                                                    И, конечно, счастья и везения.
+                                                    Мира и согласия в семье,<br>
+                                                    Пониманья вам и уважения,<br>
+                                                    Радости вам в каждом вашем дне<br>
+                                                    И, конечно, счастья и везения.<br>
 
-                                                    Пусть царит гармония во всём.
-                                                    А еще удачи вам, достатка,
-                                                    Благостью наполнится пусть дом,
-                                                    Чтоб всё было ладненько и гладко.
+                                                    Пусть царит гармония во всём.<br>
+                                                    А еще удачи вам, достатка,<br>
+                                                    Благостью наполнится пусть дом,<br>
+                                                    Чтоб всё было ладненько и гладко.<br>
                                             </p>
+                                        @{
+                                            User user = await UserManager.FindByNameAsync(User.Identity.Name);
+                                            if (user.RoleId == 1 || user.RoleId == 2 || user.Id == family.Wife.UserId || user.Id == family.Husband.UserId)
+                                                {
+                                                <div class="mt-4 pt-2">
+                                                    <a class="btn btn-primary btn-lg w-50 mb-2" href="/Marriage/DownloadDoc?id=@family.MarriageId">Скачать</a>
+                                                </div>
+                                                }
+                                            }
+
                                         </div>
                                     </div>
+                            </div>
+                        }
+                        @foreach (var divorce in Model.divorces)
+                        {
+                            <div class="card shadow-2-strong card-registration mb-5" style="border-radius: 15px;">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <img height="500" width="900" style="border-radius: 15px;" src="https://blog.karpachoff.com/img/woman/5f1ed652be290.jpg" />
+                                    </div>
+                                    <div class="col-sm mt-2 px-2 ">
+                                        <h3 style="font-family: 'Philosopher' , sans-serif;">К сожалению</h3>
+
+                                        <p style="font-family: 'Philosopher' , sans-serif;">
+                                            @divorce.DivorceDate.ToShortDateString() <b>@divorce.Family.Marriage.Husband.User.LastName @divorce.Family.Marriage.Husband.User.FirstName</b> и
+                                            <b>@divorce.Family.Marriage.Wife.User.LastName @divorce.Family.Marriage.Wife.User.FirstName</b> поняли что не подходят друг другу
+                                        </p>
+                                        <p class="align-bottom" style="font-family: 'Philosopher' , sans-serif;">
+                                            Люди дважды от счастья светятся<br>
+                                            И два раза от счастья смеются:<br>
+                                            В первый раз – когда они женятся,<br>
+                                            А второй – когда разведутся.<br>
+
+                                            (Э. Асадов)
+                                        </p>
+                                        @{
+                                            User user = await UserManager.FindByNameAsync(User.Identity.Name);
+                                            if (user.RoleId == 1 || user.RoleId == 2 || user.Id == divorce.Family.Marriage.Wife.UserId || user.Id == divorce.Family.Marriage.Husband.UserId)
+                                            {
+                                                <div class="mt-4 pt-2">
+                                                    <a class="btn btn-primary btn-lg w-50 mb-2" href="Divorce/DownloadDoc/?id=@divorce.Family.MarriageId">Скачать</a>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
                             </div>
                         }
                     </div>

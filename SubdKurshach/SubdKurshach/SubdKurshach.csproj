@@ -16,4 +16,16 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Documents\divorceDoc.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documents\marriageDoc.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Documents\marriageNewDoc.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
