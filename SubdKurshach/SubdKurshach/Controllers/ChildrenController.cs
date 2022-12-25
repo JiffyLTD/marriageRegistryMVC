@@ -67,7 +67,7 @@ namespace SubdKurshach.Controllers
                 child.BirthCertificate = childEdit.BirthCertificate;
                 child.Birthday = childEdit.Birthday;
 
-                _context.children.Entry(child).State = EntityState.Modified;
+                _context.Entry(child).State = EntityState.Modified;
                 _context.SaveChanges();
             }
 

@@ -24,6 +24,7 @@ namespace SubdKurshach.DbContext
                 SaveChanges();
             }
         }
+        public DbSet<UpdatedUserPassport> updatedUserPassports { get; set; }
         public DbSet<User> users { get; set; }
         public DbSet<UserAddress> userAddresses { get; set; }
         public DbSet<UserPassport> usersPassports { get; set; }

@@ -68,7 +68,7 @@ namespace SubdKurshach.Controllers
                 user.UserAddress.HouseNum = userEdit.UserAddress.HouseNum;
                 user.UserAddress.AppartNum = userEdit.UserAddress.AppartNum;
 
-                _context.Users.Entry(user).State = EntityState.Modified;
+                _context.Entry(user).State = EntityState.Modified;
                 _context.SaveChanges();
             }
 

@@ -123,16 +123,15 @@ namespace SubdKurshach.Controllers
 
             if (wife != null)
             {
-                List<AllChildrens>? allChildrens = _context.allChildrens.Where(x => x.PassportId == wife.User.UserPassport.PassportId)
-                    .Include(x => x.Child).ToList();
+                AllChildrens allChildrens = _context.allChildrens.Where(x => x.PassportId == wife.User.UserPassport.PassportId)
+                    .Include(x => x.Child).FirstOrDefault();
 
-                foreach (var children in allChildrens) {
-                    if (children.ChildId != null)
+                    if (allChildrens.ChildId != null)
                     {
                         Family family = new()
                         {
                             MarriageId = marriage.MarriageId,
-                            AllChildrensId = children.ChildrensId
+                            AllChildrensId = allChildrens.ChildrensId
                         };
                         _context.families.Add(family);
                         _context.SaveChanges();
@@ -146,7 +145,7 @@ namespace SubdKurshach.Controllers
                         _context.families.Add(family);
                         _context.SaveChanges();
                     }
-                }
+
             }
 
             return RedirectToAction("Index","Home");

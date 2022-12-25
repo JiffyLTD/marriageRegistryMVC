@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SubdKurshach.DbContext;
+using SubdKurshach.Models.Employees;
 using SubdKurshach.Models.Users;
 using SubdKurshach.ViewModel;
 
@@ -36,6 +37,13 @@ namespace SubdKurshach.Controllers
             User? user = _context.users.Find(userEditRole.Id);
             user.RoleId = userEditRole.RoleId;
             _context.SaveChanges();
+
+            if (userEditRole.RoleId != 3)
+            {
+                Employee employee = new() { UserId = user.Id };
+                _context.employees.Add(employee);
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("ShowUserList", "UserList");
         }
